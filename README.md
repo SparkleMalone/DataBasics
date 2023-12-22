@@ -149,7 +149,7 @@ head(Yale.Myers.annual.tmean)
 
 Save the two files, Yale.Myers and Yale.Myers.sub, in a .RDTAT object. You will need this for the post workshop assessment:
 ```{r, include=T}
-save(Yale.Myers, Yale.Myers.sub, file="DataBasics.RDATA" )
+save(Yale.Myers, Yale.Myers.sub,Yale.Myers.annual.tmean, file="DataBasics.RDATA" )
 ```
 
 # Introduction to ggplot2
