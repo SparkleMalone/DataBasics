@@ -11,7 +11,7 @@ In this workshop you will:
     + Use filter() to choose data based on values.
     + Use mutate() to create new variables.
     + Use group_by() and summarize() to work with subsets of data.
-    + Use full_join() to merge datasets
+    + Use full_join() to merge data sets
 3. Visualize data with ggplot2
 4. Write basic functions
 
