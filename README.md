@@ -11,7 +11,7 @@ In this workshop you will:
     + Use filter() to choose data based on values.
     + Use mutate() to create new variables.
     + Use group_by() and summarize() to work with subsets of data.
-    + Use full_join() to merge data sets
+    + Use full_join() to merge datasets
 3. Visualize data with ggplot2
 4. Write basic functions
 
@@ -52,7 +52,8 @@ Evaluate the data types:
 ```{r, include=T}
 summary( Yale.Myers)
 ```
-Format the time variables and create a date in the format YYYY-mm-dd :
+## It's a Date
+Format the date variables and create a date in the format YYYY-mm-dd :
 
 Step 1. Use the year and day of the year to create a year.day variable.
 ```{r, include=T}
@@ -74,6 +75,7 @@ Check the class:
 ```{r, include=T}
 class(Yale.Myers$date)
 ```
+## mutate()
 The function mutate() creates new columns that are functions of existing variables. Use mutate() to create a month and Julian day (JulianD) from the formated date.
 
 ```{r, include=T}
@@ -89,6 +91,7 @@ Look at your work:
 ```{r, include=T}
 summary(Yale.Myers$tmean)
 ```
+## rename()
 
 Use the function rename() to rename tmax..deg.c to tmax, tmin..deg.c to tmin, and prcp..mm.day. to prcp:
 ```{r, include=T}
@@ -98,6 +101,8 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.rn )
 ```
+## subset()
+
 Subset the dataset to include only [date, month, year, julianD, tmax, tmin, tmean, and prcp] :
 ```{r, include=T}
 Yale.Myers.sub <-Yale.Myers.rn %>% select(date, month, year, julianD, tmax, tmin, tmean, prcp)
@@ -106,6 +111,7 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.sub )
 ```
+## goup_by() and summarise()
 Create an annual summary of conditions using goup_by() and summarise() :
 ```{r, include=T}
 Yale.Myers.annual <-Yale.Myers.sub %>% group_by(year) %>% summarise( tmax = max(tmax), tmin = min(tmin), tmean = mean(tmean), prcp = sum(prcp))
@@ -114,7 +120,6 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.annual)
 ```
-
 Determine the average monthly conditions using goup_by() and summarise() :
 ```{r, include=T}
 Yale.Myers.monthly <-Yale.Myers.sub %>% group_by(month) %>% summarise( tmax = max(tmax), tmin = min(tmin), tmean = mean(tmean), prcp = sum(prcp)/29)
@@ -131,7 +136,7 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.yearmon )
 ```
-
+## select()
 Subset the mean annual temperate and year from the annual summary. Then rename tmean with "Yale-Myers" :
 ```{r, include=T}
 Yale.Myers.annual.tmean <- Yale.Myers.annual %>% mutate(Yale.Myers = tmean) %>% select(year, Yale.Myers)
@@ -140,6 +145,8 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.annual.tmean)
 ```
+## save()
+
 Save the two files, Yale.Myers and Yale.Myers.sub, in a .RDTAT object. You will need this for the post workshop assessment:
 ```{r, include=T}
 save(Yale.Myers, Yale.Myers.sub, file="DataBasics.RDATA" )
