@@ -1,6 +1,6 @@
-# Data Basics (EcoClim)
+# Data Basics
 
-### Learn the basics of manipulating data in R
+## Learn the basics of manipulating data in R
 
 In this workshop you will:
 
@@ -13,7 +13,7 @@ In this workshop you will:
     + Use group_by() and summarize() to work with subsets of data.
     + Use full_join() to merge datasets
 3. Visualize data with ggplot2
-4. Write basic functions
+4. Learn to write basic functions
 
 # Data manipulation with tidyverse
 
@@ -22,15 +22,16 @@ In this workshop you will:
 library(daymetr)
 library(tidyverse)
 ```
-## What is the climate of Yale-Myers Forest?
+### What is the climate of Yale-Myers Forest?
 
-Yale-Myers Forest is a 7,840 acre research forest Connecticut. It is a hub for education, research, and harvesting operations within the Yale School Forest System. The forest primarily consists of mixed hardwoods on glacial till soils, featuring a significant presence of hemlock, scattered white pine stands from old field origins, and red pine plantations established in the 1940s. 
+Yale-Myers Forest is a 7,840 acre research forest in Connecticut. It is a hub for education, research, and harvesting operations within the Yale Forest School system. The forest primarily consists of mixed hardwoods on glacial till soils, featuring a significant presence of hemlock, scattered white pine stands from old field origins, and red pine plantations established in the 1940s. 
 
 To explore the climate of the area, download daily daymet data for (41.952909, -72.123859). Review the arguments for the download_daymet() function.
+
 ```{r, include=T}
 ?download_daymet()
 ```
-To use the download_daymet() function you need the latitude, longitude, start (1990), and end (2018). 
+To use the download_daymet() function you need the latitude, longitude, start (1990), and end (2018) years. 
 
 ```{r, include=T}
 Yale.Myers.daymet <- download_daymet( lat =  41.952909,
@@ -52,7 +53,7 @@ Evaluate the data types:
 ```{r, include=T}
 summary( Yale.Myers)
 ```
-## It's a Date
+### It's a Date
 Format the date variables and create a date in the format YYYY-mm-dd :
 
 Step 1. Use the year and day of the year to create a year.day variable.
@@ -75,14 +76,14 @@ Check the class:
 ```{r, include=T}
 class(Yale.Myers$date)
 ```
-## mutate()
-The function mutate() creates new columns that are functions of existing variables. Use mutate() to create a month and Julian day (JulianD) from the formated date.
+### mutate()
+The function mutate() creates new columns that are a function of existing variables. Use mutate() to create a month (month) and Julian day (JulianD) from the formatted date.
 
 ```{r, include=T}
 Yale.Myers <- Yale.Myers %>% mutate( month = format( Yale.Myers$date, format="%m" ),
                      julianD = format( Yale.Myers$date, format="%j") )
 ```
-With Daymet data you have to calculate the mean temperature using tmax and tmin:
+With daymet data you have to calculate the mean temperature using tmax and tmin:
 
 ```{r, include=T}
 Yale.Myers$tmean = (0.606 *as.numeric(Yale.Myers$tmax..deg.c.)) + 0.394 * as.numeric(Yale.Myers$tmin..deg.c.)
@@ -91,7 +92,7 @@ Look at your work:
 ```{r, include=T}
 summary(Yale.Myers$tmean)
 ```
-## rename()
+### rename()
 
 Use the function rename() to rename tmax..deg.c to tmax, tmin..deg.c to tmin, and prcp..mm.day. to prcp:
 ```{r, include=T}
@@ -101,7 +102,7 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.rn )
 ```
-## subset()
+### subset()
 
 Subset the dataset to include only [date, month, year, julianD, tmax, tmin, tmean, and prcp] :
 ```{r, include=T}
@@ -111,7 +112,7 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.sub )
 ```
-## goup_by() and summarise()
+### goup_by() and summarise()
 Create an annual summary of conditions using goup_by() and summarise() :
 ```{r, include=T}
 Yale.Myers.annual <-Yale.Myers.sub %>% group_by(year) %>% summarise( tmax = max(tmax), tmin = min(tmin), tmean = mean(tmean), prcp = sum(prcp))
@@ -136,7 +137,7 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.yearmon )
 ```
-## select()
+### select()
 Subset the mean annual temperate and year from the annual summary. Then rename tmean with "Yale-Myers" :
 ```{r, include=T}
 Yale.Myers.annual.tmean <- Yale.Myers.annual %>% mutate(Yale.Myers = tmean) %>% select(year, Yale.Myers)
@@ -145,7 +146,7 @@ Look at your work:
 ```{r, include=T}
 head(Yale.Myers.annual.tmean)
 ```
-## save()
+### save()
 
 Save the two files, Yale.Myers and Yale.Myers.sub, in a .RDTAT object. You will need this for the post workshop assessment:
 ```{r, include=T}
@@ -153,6 +154,140 @@ save(Yale.Myers, Yale.Myers.sub,Yale.Myers.annual.tmean, file="DataBasics.RDATA"
 ```
 
 # Introduction to ggplot2
+
+
+# Introduction to writing Functions in R
+
+Functions are essential tools in R. Functions eliminate repetition from your code, which can reduce your workload, and help you to avoid errors. Here’s what you need to know about creating and calling them and more. It is very important to understand the purpose and syntax of R functions and knowing how to create or use them. In this tutorial, we'll learn what an R function is, what types of functions exist in R, when we should use a function, how to create and call a user-defined function.
+
+### What Is a Function in R?
+In R, a function is a set of instructions that performs a specific task. Functions are essential for code organization, reusability, and efficiency. R comes with a variety of built-in functions, and you can also create your own custom functions. The main purpose of creating a user-defined function is to optimize scripts and avoid repetition. A good practice is creating a function whenever you need to run a certain set of commands more than twice.
+
+### Built-in Functions in R
+Some of the most popular built in function are:
+-	min(), max(), mean(), median(): returns the minimum / maximum / mean / median value of a numeric vector
+-	sum(): returns the sum of a numeric vector
+-	range(): returns the minimum and maximum values of a numeric vector
+-	abs(): returns the absolute value of a number
+-	str(): shows the structure of an R object
+-	print(): displays an R object on the console
+-	ncol(): returns the number of columns of a matrix or a dataframe
+-	length(): returns the number of items in an R object (a vector, a list, etc.)
+-	nchar(): returns the number of characters in a character object
+-	sort(): sorts a vector in ascending or descending (decreasing=TRUE) order
+-	exists():returns TRUE or FALSE depending on whether or not a variable is defined in the R environment
+
+### Creating a Function in R
+To create a user-defined function in R, we use the keyword function. The syntax is as follows:
+
+  function_name <- function(parameters){
+    function body 
+  }
+
+### 1. Function Name
+This is the name of the function object that will be stored in the R environment. After the function is defined, the function name is used for calling that function. It should be concise but clear and meaningful so that the user who reads our code can easily understand what exactly this function does. It is common to use verbs in function names and it is also ok to use a noun if that noun is very descriptive and unambiguous.
+
+### 2. Function Parameters
+Function parameters are the variables in the function definition placed inside the parentheses and separated with a comma that will be set to actual values (called arguments) each time we call the function.
+
+### 3. Function Body
+The function body is a set of commands inside the curly braces that are run in a predefined order every time we call the function. In the function body, we place what exactly we need the function to do. For example, we can create a function to sum two numbers listed as parameters x and y: 
+
+```{r, echo=TRUE}
+sum_two_nums <- function(x, y){
+    x + y
+}
+
+print(sum_two_nums(1, 2))
+
+```
+
+
+Next, lets create a function to calculate the circumference of a circle with a known radius. The function has only one parameter r. 
+
+```{r, echo=TRUE}
+
+  circumference <- function(radius){
+    2*pi*radius
+  }
+```
+
+After defining the function, call it with the radius equal to 2:
+
+```{r, echo=TRUE}
+circumference( r=2)
+
+```
+
+It's possible, even though rarely useful, for a function to have no parameters:
+
+```{r}
+
+hello_world <- function(){
+    'Hello, World!'
+}
+
+print(hello_world())
+
+```
+Also, some parameters can be set to default values inside the function definition, which then can be reset when calling the function. Returning the circumference function, we can set the default radius of a circle to 1. If we call the function with no argument passed, it will calculate the circumference of a  a circle with a radius of 1. Otherwise, it will calculate the circumference of a circle with the provided radius:
+
+```{r}
+
+circumference <- function(r=1){
+    2*pi*r
+}
+
+print(circumference())
+
+print(circumference( r=2))
+```
+
+Note that the statements in the function body should be indented by 2 or 4 spaces, depending on the IDE where we run the code, but the important thing is to be consistent with the indentation throughout the program. While it doesn't affect the code performance and isn't obligatory, it makes the code easier to read.
+
+### return()
+As we saw from all the above examples, in R, it usually isn't necessary to explicitly include the return statement when defining a function since an R function just automatically returns the last evaluated expression in the function body. However, we still can add the return statement inside the function body using the syntax return(expression_to_be_returned). This becomes inevitable if we need to return more than one result from a function. For example:
+
+```{r}
+mean_median <- function(vector){
+    mean <- mean(vector)
+    median <- median(vector)
+    return(c(mean, median))
+}
+
+print(mean_median(c(1, 1, 1, 2, 3)))
+```
+
+Note that in the return statement above, we actually return a vector containing the necessary results, and not just the variables separated by a comma (since the return() function can return only a single R object). Instead of a vector, we could also return a list, especially if the results to be returned are supposed to be of different data types.
+
+## Calling a Function in R
+In all the above examples, we actually already called the created functions many times. To do so, we just put the punction name and added the necessary arguments inside the parenthesis. In R, function arguments can be passed by position, by name (so-called named arguments), by mixing position-based and name-based matching, or by omitting the arguments at all.
+If we pass the arguments by position, we need to follow the same sequence of arguments as defined in the function:
+
+```{r}
+subtract_two_nums <- function(x, y){
+    x - y
+}
+
+print(subtract_two_nums(3, 1))
+```
+In the above example, x is equal to 3 and y – to 1, and not vice versa.
+
+If we pass the arguments by name, i.e., explicitly specify what value each parameter defined in the function takes, the order of the arguments doesn't matter:
+  
+  ```{r}
+  subtract_two_nums <- function(x, y){
+    x - y
+  }
+  print(subtract_two_nums(x=3, y=1))
+  print(subtract_two_nums(y=1, x=3))
+```
+
+Things to remember when using functions inside other functions: 
+- Functions can have default values for arguments.
+- Functions can return multiple values using a list or other data structures.
+- You can use the return() statement to specify the value to be returned by the function.
+- If you want to be able to use the function independent of another function, it should be created outside a function instead of nesting the functions. 
 
 
 ## Post-Workshop Assessment:
