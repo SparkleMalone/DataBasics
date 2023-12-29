@@ -156,11 +156,11 @@ save(Yale.Myers, Yale.Myers.sub,Yale.Myers.annual.tmean, file="DataBasics.RDATA"
 # Introduction to ggplot2
 
 
-# Introduction to writing Functions in R
+### Introduction to Writing Functions in R
 
-Functions are essential tools in R. Functions eliminate repetition from your code, which can reduce your workload, and help you to avoid errors. Here’s what you need to know about creating and calling them and more. It is very important to understand the purpose and syntax of R functions and knowing how to create or use them. In this tutorial, we'll learn what an R function is, what types of functions exist in R, when we should use a function, how to create and call a user-defined function.
+Functions are essential tools in R. Functions eliminate repetition from your code, which can reduce your workload, and help you to avoid errors. Here’s what you need to know about creating and calling them. It is very important to understand the purpose and syntax of R functions and knowing how to create or use them. In this tutorial, we'll learn what an R function is, what types of functions exist in R, when we should use a function, how to create and call a user-defined function.
 
-### What Is a Function in R?
+### What Is a function in R?
 In R, a function is a set of instructions that performs a specific task. Functions are essential for code organization, reusability, and efficiency. R comes with a variety of built-in functions, and you can also create your own custom functions. The main purpose of creating a user-defined function is to optimize scripts and avoid repetition. A good practice is creating a function whenever you need to run a certain set of commands more than twice.
 
 ### Built-in Functions in R
@@ -194,6 +194,7 @@ Function parameters are the variables in the function definition placed inside t
 The function body is a set of commands inside the curly braces that are run in a predefined order every time we call the function. In the function body, we place what exactly we need the function to do. For example, we can create a function to sum two numbers listed as parameters x and y: 
 
 ```{r, echo=TRUE}
+
 sum_two_nums <- function(x, y){
     x + y
 }
@@ -219,7 +220,7 @@ circumference( r=2)
 
 ```
 
-It's possible, even though rarely useful, for a function to have no parameters:
+It's possible, for a function to have no parameters:
 
 ```{r}
 
@@ -230,7 +231,7 @@ hello_world <- function(){
 print(hello_world())
 
 ```
-Also, some parameters can be set to default values inside the function definition, which then can be reset when calling the function. Returning the circumference function, we can set the default radius of a circle to 1. If we call the function with no argument passed, it will calculate the circumference of a  a circle with a radius of 1. Otherwise, it will calculate the circumference of a circle with the provided radius:
+Also, some parameters can be set to default values inside the function definition, which then can be reset when calling the function. In the circumference function, we can set the default radius of a circle to 1. If we call the function with no argument passed, it will calculate the circumference of a circle with a radius of 1. Otherwise, it will calculate the circumference of a circle with the provided radius:
 
 ```{r}
 
@@ -243,10 +244,10 @@ print(circumference())
 print(circumference( r=2))
 ```
 
-Note that the statements in the function body should be indented by 2 or 4 spaces, depending on the IDE where we run the code, but the important thing is to be consistent with the indentation throughout the program. While it doesn't affect the code performance and isn't obligatory, it makes the code easier to read.
+Note that the statements in the function body should be indented by 2 or 4 spaces, depending on the IDE where we run the code. The important thing is to be consistent with the indentation throughout the program. While it doesn't affect the code performance, it makes the code easier to read.
 
 ### return()
-As we saw from all the above examples, in R, it usually isn't necessary to explicitly include the return statement when defining a function since an R function just automatically returns the last evaluated expression in the function body. However, we still can add the return statement inside the function body using the syntax return(expression_to_be_returned). This becomes inevitable if we need to return more than one result from a function. For example:
+As we saw from all the above examples, in R, it usually isn't necessary to explicitly include the return statement when defining a function since an R function just automatically returns the last evaluated expression in the function body. However, we still can add the return statement inside the function body using the syntax return(expression_to_be_returned). This becomes important if we need to return more than one result from a function. For example:
 
 ```{r}
 mean_median <- function(vector){
@@ -258,10 +259,11 @@ mean_median <- function(vector){
 print(mean_median(c(1, 1, 1, 2, 3)))
 ```
 
-Note that in the return statement above, we actually return a vector containing the necessary results, and not just the variables separated by a comma (since the return() function can return only a single R object). Instead of a vector, we could also return a list, especially if the results to be returned are supposed to be of different data types.
+Note that in the return statement above, we actually return a vector containing the necessary results, and not just the variables separated by a comma. The return() function can return only a single R object. Instead of a vector, we could also return a list, especially if the results to be returned are supposed to be of different data types.
 
 ## Calling a Function in R
-In all the above examples, we actually already called the created functions many times. To do so, we just put the punction name and added the necessary arguments inside the parenthesis. In R, function arguments can be passed by position, by name (so-called named arguments), by mixing position-based and name-based matching, or by omitting the arguments at all.
+In all the above examples, we called the created functions by using the function name and adding the necessary arguments inside the parenthesis. In R, function arguments can be passed by position, by name (so-called named arguments), by mixing position-based and name-based matching, or by omitting the arguments altogether.
+
 If we pass the arguments by position, we need to follow the same sequence of arguments as defined in the function:
 
 ```{r}
@@ -271,7 +273,7 @@ subtract_two_nums <- function(x, y){
 
 print(subtract_two_nums(3, 1))
 ```
-In the above example, x is equal to 3 and y – to 1, and not vice versa.
+In the above example, x is equal to 3 and y to 1, and not vice versa.
 
 If we pass the arguments by name, i.e., explicitly specify what value each parameter defined in the function takes, the order of the arguments doesn't matter:
   
@@ -289,6 +291,18 @@ Things to remember when using functions inside other functions:
 - You can use the return() statement to specify the value to be returned by the function.
 - If you want to be able to use the function independent of another function, it should be created outside a function instead of nesting the functions. 
 
-
 ## Post-Workshop Assessment:
-Find a location of interest within the USA in google earth (https://earth.google.com/) and record the latitude and longitude in decimal degrees. Next, download Daymet data for that location. Join your location information with Yale.Myers.annual.tmean in a dataframe called climateCompare:
+
+The standard error measures the precision of the estimate of the sample mean. Write a function to calculate the standard error. Use this function when comparing mean monthly temperature values between Yale Myers and a chosen location. 
+
+Find a location of interest within the USA in google earth (https://earth.google.com/) and record the latitude and longitude in decimal degrees. Next, download Daymet data for that location. subset tmean in both datasets, calculate the mean monthly and standard error of tmean (SE) for both locations. Create a figure comparing mean monthly and the standard error of tmean at both locations.
+
+Create figures and text to show the following:
+
+- 1. Differences in monthly tmean, and standard error in tmean for both locations.
+- 2. Differences in monthly precipitation (prcp), and standard error in prcp for both locations.
+- 3. Differences in monthly minimum temperature (tmin), and standard error in tmin for both locations.
+- 4. Differences in monthly maximim temperature (tmax), and standard error in tmax for both locations.
+- 5. Why are the two locations similar or different?
+
+* create an Rmarkdown report to upload to canvas (save as a pdf): https://hbctraining.github.io/Training-modules/Rmarkdown/lesson.html
