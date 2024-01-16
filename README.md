@@ -238,7 +238,7 @@ p + facet_grid(month ~ .) +
        y = "Mean Air Temperature (Degrees Celcius)")
 
 ```
-### Statistics layer
+### Statistics layer:
 We can transform our data using binning, smoothing, descriptive, or intermediate. We will explore how February temperatures have changed from 1990 - 2018
 ```{r, echo=TRUE}
 
@@ -418,7 +418,7 @@ Things to remember when using functions inside other functions:
 - You can use the return() statement to specify the value to be returned by the function.
 - If you want to be able to use the function independent of another function, it should be created outside a function instead of nesting the functions. 
 
-## Post-Workshop Assessment:
+# Post-Workshop Assessment:
 
 The standard error measures the precision of the estimate of the sample mean. Write a function to calculate the standard error. Use this function when comparing mean monthly temperature values between Yale-Myers and a chosen location. 
 
