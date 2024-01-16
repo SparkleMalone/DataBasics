@@ -299,10 +299,10 @@ Find a location of interest within the USA in google earth (https://earth.google
 
 Create figures and text to show the following:
 
-- 1. Differences in monthly tmean, and standard error in tmean for both locations.
-- 2. Differences in monthly precipitation (prcp), and standard error in prcp for both locations.
-- 3. Differences in monthly minimum temperature (tmin), and standard error in tmin for both locations.
-- 4. Differences in monthly maximim temperature (tmax), and standard error in tmax for both locations.
-- 5. Why are the two locations similar or different?
+  1. Differences in monthly tmean, and standard error in tmean for both locations.
+  2. Differences in monthly precipitation (prcp), and standard error in prcp for both locations.
+  3. Differences in monthly minimum temperature (tmin), and standard error in tmin for both locations.
+  4. Differences in monthly maximim temperature (tmax), and standard error in tmax for both locations.
+  5. Why are the two locations similar or different?
 
-* create an Rmarkdown report to upload to canvas (save as a pdf): https://hbctraining.github.io/Training-modules/Rmarkdown/lesson.html
+* Create an Rmarkdown report to upload to canvas (save as a pdf): https://hbctraining.github.io/Training-modules/Rmarkdown/lesson.html
