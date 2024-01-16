@@ -180,14 +180,14 @@ ggplot(data = Yale.Myers.sub) +
 
 ```
 ### Aesthetic Layer:
-mapping ... display and map dataset into certain aesthetics.
+The data is used to map onto the aesthetics attributes such as x-axis, y-axis, color, fill, size, labels, alpha, shape, line width, line type.
 
 ```{r, echo=TRUE}
 ggplot(data = Yale.Myers.sub, aes(x = date , y = tmean)) +
   labs(title = "Climate of Yale Myers Forest")
  ```
 ### Geometric layer:
-The geometric layer controls the essential elements, see how the data being displayed using point, line, histogram, bar, boxplot.
+The geometric layer controls the essential elements. Display the data using point, line, histogram, bar, or boxplot.
 
 ```{r, echo=TRUE}
 ggplot(data = Yale.Myers.sub, aes(x = date , y = tmean))+
@@ -239,7 +239,7 @@ p + facet_grid(month ~ .) +
 
 ```
 ### Statistics layer
-We can transform our data using binning, smoothing, descriptive, intermediate. We will explore how february temperatures have changed from 1990 - 2018
+We can transform our data using binning, smoothing, descriptive, or intermediate. We will explore how February temperatures have changed from 1990 - 2018
 ```{r, echo=TRUE}
 
 #Subset the data:
@@ -283,8 +283,7 @@ ggplot(data = Yale.Myers.fall, aes(x = tmin , y = tmean)) + geom_point() +
   theme(plot.background = element_rect(fill = "blue", colour = "gray")) 
 ```
 
-
-### Introduction to Writing Functions in R 
+# Introduction to Writing Functions in R 
 
 Functions are essential tools in R. Functions eliminate repetition from your code, which can reduce your workload, and help you to avoid errors. Here’s what you need to know about creating and calling them. It is very important to understand the purpose and syntax of R functions and knowing how to create or use them. In this tutorial, we'll learn what an R function is, what types of functions exist in R, when we should use a function, how to create and call a user-defined function.
 
