@@ -192,7 +192,7 @@ The geometric layer controls the essential elements. Display the data using poin
 ```{r, echo=TRUE}
 ggplot(data = Yale.Myers.sub, aes(x = date , y = tmean))+
    geom_point() +
-  labs(title = "Miles per Gallon vs Horsepower",
+  labs(title = "Climate of Yale Myers Forest",
        x = "Date",
        y = "Mean Air Temperature (Degrees Celcius)")
 ```
